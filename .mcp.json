@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "mcpserver": {
+      "type": "stdio",
+      "command": "mcpserver-repl",
+      "args": ["--agent-stdio"],
+      "env": {
+        "MCP_WORKSPACE_PATH": "${user_config.workspace_path}",
+        "MCPSERVER_WORKSPACE_PATH": "${user_config.workspace_path}",
+        "COWORK_WORKSPACE_PATH": "${user_config.workspace_path}",
+        "MCP_SESSION_AGENT": "ClaudeCowork",
+        "PLUGIN_AGENT_NAME": "ClaudeCowork",
+        "MCP_SESSION_TITLE": "${user_config.session_title}"
+      }
+    }
+  }
+}

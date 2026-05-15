@@ -1,0 +1,5 @@
+cache/pending/
+cache/session-state.yaml
+cache/plan-todo-map.yaml
+dist/
+*.tmp

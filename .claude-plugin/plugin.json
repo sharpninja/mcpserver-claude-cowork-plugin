@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "mcpserver-cowork",
+  "version": "0.1.0",
+  "description": "Connect Claude Cowork to McpServer for marker-trusted TODO management, session logging, requirements tracking, GraphRAG operations, and local outage handoff recovery.",
+  "author": {
+    "name": "Payton Byrd (The Sharp Ninja)",
+    "url": "https://github.com/sharpninja"
+  },
+  "homepage": "https://github.com/sharpninja/McpServer",
+  "repository": "https://github.com/sharpninja/mcpserver-claude-cowork-plugin",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "cowork",
+    "todo",
+    "session-log",
+    "requirements",
+    "graphrag",
+    "knowledge-graph",
+    "workspace"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./.mcp.json",
+  "userConfig": {
+    "workspace_path": {
+      "type": "string",
+      "title": "Workspace path",
+      "description": "Absolute local path to the MCP workspace containing AGENTS-README-FIRST.yaml.",
+      "required": true
+    },
+    "session_title": {
+      "type": "string",
+      "title": "Session title",
+      "description": "Default title used when the plugin opens a McpServer session log.",
+      "default": "Claude Cowork MCP session"
+    }
+  }
+}

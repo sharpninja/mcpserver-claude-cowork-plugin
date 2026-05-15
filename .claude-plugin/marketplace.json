@@ -1,0 +1,17 @@
+{
+  "name": "mcpserver-cowork",
+  "owner": {
+    "name": "Payton Byrd (The Sharp Ninja)",
+    "url": "https://github.com/sharpninja"
+  },
+  "metadata": {
+    "description": "McpServer Claude Cowork plugin marketplace."
+  },
+  "plugins": [
+    {
+      "name": "mcpserver-cowork",
+      "source": "./",
+      "description": "Connect Claude Cowork to McpServer with marker-trusted session log, TODO, requirements, and GraphRAG workflows."
+    }
+  ]
+}
