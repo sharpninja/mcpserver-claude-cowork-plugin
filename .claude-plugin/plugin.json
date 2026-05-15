@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "mcpserver-cowork",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connect Claude Cowork to McpServer for marker-trusted TODO management, session logging, requirements tracking, GraphRAG operations, and local outage handoff recovery.",
   "author": {
     "name": "Payton Byrd (The Sharp Ninja)",
@@ -21,7 +21,6 @@
     "workspace"
   ],
   "skills": "./skills/",
-  "hooks": "./hooks/hooks.json",
   "mcpServers": "./.mcp.json",
   "userConfig": {
     "workspace_path": {

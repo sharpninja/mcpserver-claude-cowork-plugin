@@ -31,10 +31,14 @@ if (plugin) {
     errors.push(`plugin name must be mcpserver-cowork, got ${plugin.name}`);
   }
 
-  for (const field of ["skills", "hooks", "mcpServers", "userConfig"]) {
+  for (const field of ["skills", "mcpServers", "userConfig"]) {
     if (!Object.prototype.hasOwnProperty.call(plugin, field)) {
       errors.push(`plugin.json missing ${field}`);
     }
+  }
+
+  if (plugin.hooks === "./hooks/hooks.json") {
+    errors.push("plugin.json must not point hooks at hooks/hooks.json; Claude loads the standard hooks file automatically");
   }
 
   if (!plugin.userConfig?.workspace_path?.required) {
