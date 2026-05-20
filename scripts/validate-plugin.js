@@ -85,7 +85,7 @@ if (hooks && !hooks.hooks) {
   errors.push("hooks/hooks.json missing hooks object");
 }
 
-for (const skill of ["todo", "session", "requirements", "graphrag"]) {
+for (const skill of ["todo", "session", "requirements", "graphrag", "workspace"]) {
   requirePath(`skills/${skill}/SKILL.md`);
 }
 
