@@ -61,16 +61,25 @@ if (marketplace) {
   }
 }
 
+// Canonical wrapper command: plugin-local script, no bare PATH dependency.
+// Windows primary: ${CLAUDE_PLUGIN_ROOT}/bin/mcpserver-stdio.cmd
+// macOS/Linux: change command to ${CLAUDE_PLUGIN_ROOT}/bin/mcpserver-stdio.sh
+const EXPECTED_CMD = "${CLAUDE_PLUGIN_ROOT}/bin/mcpserver-stdio.cmd";
+
 if (mcp) {
   const server = mcp.mcpServers?.mcpserver;
   if (!server) {
     errors.push(".mcp.json missing mcpServers.mcpserver");
   } else {
-    if (server.command !== "mcpserver-repl") {
-      errors.push(`mcpserver command must be mcpserver-repl, got ${server.command}`);
+    if (server.command !== EXPECTED_CMD) {
+      errors.push(
+        `mcpserver command must be ${EXPECTED_CMD}, got "${server.command}". ` +
+        "Use the plugin-local wrapper instead of a bare PATH command."
+      );
     }
-    if (!Array.isArray(server.args) || !server.args.includes("--agent-stdio")) {
-      errors.push("mcpserver args must include --agent-stdio");
+    // args must be empty -- mcpserver-repl --agent-stdio is called inside the wrapper
+    if (!Array.isArray(server.args) || server.args.length !== 0) {
+      errors.push("mcpserver args must be [] when using the wrapper script (wrapper calls --agent-stdio internally)");
     }
     if (server.env?.MCP_SESSION_AGENT !== "ClaudeCowork") {
       errors.push("MCP_SESSION_AGENT must be ClaudeCowork");
@@ -84,6 +93,10 @@ if (mcp) {
 if (hooks && !hooks.hooks) {
   errors.push("hooks/hooks.json missing hooks object");
 }
+
+// Wrapper scripts (bin/)
+requirePath("bin/mcpserver-stdio.cmd");
+requirePath("bin/mcpserver-stdio.sh");
 
 for (const skill of ["todo", "session", "requirements", "graphrag", "workspace"]) {
   requirePath(`skills/${skill}/SKILL.md`);

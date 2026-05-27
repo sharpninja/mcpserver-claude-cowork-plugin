@@ -21,6 +21,7 @@ try {
     $items = @(
         '.claude-plugin',
         '.mcp.json',
+        'bin',
         'hooks',
         'lib',
         'skills',
