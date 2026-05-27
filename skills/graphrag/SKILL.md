@@ -1,7 +1,6 @@
 ---
 name: GraphRAG Knowledge Graph
 description: This skill should be used when the user asks to "ingest text into graphrag", "add document to knowledge graph", "create entity", "create relationship", "query knowledge graph", "list graph entities", "delete document"
-version: 0.1.0
 ---
 
 # GraphRAG Knowledge Graph

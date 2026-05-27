@@ -1,7 +1,6 @@
 ---
 name: TODO Management
 description: This skill should be used when the user asks to "create a todo", "list todos", "update todo", "query tasks", "check todo status", "plan implementation", "mark todo done"
-version: 0.1.0
 ---
 
 # TODO Management

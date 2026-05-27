@@ -1,7 +1,6 @@
 ---
 name: Session Log Management
 description: This skill should be used when the user asks to "start session", "log session", "begin turn", "update turn", "complete turn", "query session history"
-version: 0.1.0
 ---
 
 # Session Log Management

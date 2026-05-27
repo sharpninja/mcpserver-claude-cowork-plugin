@@ -1,7 +1,6 @@
 ---
 name: Workspace Initialization
 description: This skill should be used when the user asks to "initialize workspace", "register workspace", "add workspace", "create workspace marker", or "bootstrap MCP workspace"
-version: 0.1.0
 ---
 
 # Workspace Initialization

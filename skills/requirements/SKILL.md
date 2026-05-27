@@ -1,7 +1,6 @@
 ---
 name: Requirements Management
 description: This skill should be used when the user asks to "list requirements", "add requirement", "create FR", "create TR", "create test requirement", "generate requirements document", "ingest requirements"
-version: 0.1.0
 ---
 
 # Requirements Management

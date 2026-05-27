@@ -1,5 +1,4 @@
 {
-  "description": "McpServer integration hooks for Claude Cowork workspace discovery, session tracking, plan synchronization, and local failsafe enforcement",
   "hooks": {
     "SessionStart": [
       {
