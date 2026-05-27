@@ -1,7 +1,6 @@
 {
   "mcpServers": {
     "mcpserver": {
-      "type": "stdio",
       "command": "${CLAUDE_PLUGIN_ROOT}/bin/mcpserver-stdio.cmd",
       "args": [],
       "env": {
