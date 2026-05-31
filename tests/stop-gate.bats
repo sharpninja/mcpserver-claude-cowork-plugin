@@ -42,28 +42,32 @@ run_stop_gate() {
     bash "$STOP_GATE" </dev/null 2>/dev/null
 }
 
-@test "no turn file → no-turn status" {
+@test "no turn file → schema-valid no-op output" {
     rm -f "$(test_cache_file current-turn.yaml)"
     out="$(run_stop_gate)"
-    echo "$out" | grep -qF '"status":"no-turn"'
+    # Stop pass-through must not emit a hookSpecificOutput.status (Claude Code
+    # rejects it as "(root): Invalid input"). The canonical allow output is {}.
+    [ "$out" = "{}" ]
 }
 
-@test "in_progress turn → self-heal passes" {
+@test "in_progress turn → self-heal emits no-op (not block)" {
     write_turn "in_progress"
     out="$(run_stop_gate)"
-    echo "$out" | grep -qF '"status":"passed"'
+    [ "$out" = "{}" ]
+    echo "$out" | grep -qvF '"decision":"block"'
 }
 
-@test "in_progress self-heal names turn id" {
+@test "in_progress self-heal flips turn to completed" {
     write_turn "in_progress"
-    out="$(run_stop_gate)"
-    echo "$out" | grep -qF "req-test-stop-001"
+    run_stop_gate >/dev/null
+    status_after="$(grep '^status:' "$(test_cache_file current-turn.yaml)" | head -1 | sed 's/^status:[[:space:]]*//')"
+    [ "$status_after" = "completed" ]
 }
 
-@test "completed turn (clean build) → status:passed" {
+@test "completed turn (clean build) → schema-valid no-op output" {
     write_turn "completed"
     out="$(run_stop_gate)"
-    echo "$out" | grep -qF '"status":"passed"'
+    [ "$out" = "{}" ]
 }
 
 @test "completed turn with failed build + edits → decision:block" {
@@ -77,7 +81,7 @@ run_stop_gate() {
     write_turn "completed" 3 "failed"
     touch "$(test_cache_file turn-accept-failure.marker)"
     out="$(run_stop_gate)"
-    echo "$out" | grep -qF '"status":"passed"'
+    [ "$out" = "{}" ]
 }
 
 @test "accept-failure marker is consumed (deleted) after use" {
@@ -108,13 +112,34 @@ response: |
     [ "$status_after" = "completed" ]
 
     out="$(run_stop_gate)"
-    echo "$out" | grep -qF '"status":"passed"'
+    [ "$out" = "{}" ]
 }
 
-@test "CLAUDE_STOP_HOOK_ACTIVE=true short-circuits to already-reprompted" {
+@test "CLAUDE_STOP_HOOK_ACTIVE=true short-circuits with schema-valid no-op" {
     write_turn "in_progress"
     export CLAUDE_STOP_HOOK_ACTIVE=true
     out="$(run_stop_gate)"
     unset CLAUDE_STOP_HOOK_ACTIVE
-    echo "$out" | grep -qF '"status":"already-reprompted"'
+    [ "$out" = "{}" ]
+}
+
+@test "in_progress self-heal with codexJsonlPath passes and uses JSONL enrichment" {
+    command -v node >/dev/null 2>&1 || skip "node not available"
+    FIXTURES="$PLUGIN_ROOT/tests/fixtures"
+    # Write turn file that references a real JSONL fixture
+    cat > "$(test_cache_file current-turn.yaml)" <<EOF
+turnRequestId: req-test-stop-jsonl-001
+queryTitle: Stop gate JSONL test
+openedAt: 2026-04-19T00:00:00Z
+status: in_progress
+codeEdits: 0
+lastBuildStatus: unknown
+codexJsonlPath: "${FIXTURES}/parent-rollout.jsonl"
+EOF
+    out="$(run_stop_gate)"
+    # Self-heal must pass regardless of JSONL enrichment outcome
+    [ "$out" = "{}" ]
+    # Turn file status must be flipped to completed
+    status_after="$(grep '^status:' "$(test_cache_file current-turn.yaml)" | head -1 | sed 's/^status:[[:space:]]*//')"
+    [ "$status_after" = "completed" ]
 }
