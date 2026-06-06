@@ -50,6 +50,18 @@ The Cowork variant intentionally separates two paths:
 
 The plugin must not bypass `AGENTS-README-FIRST.yaml` trust. If marker verification or health nonce verification fails, MCP writes must stop and local handoff/failsafe files must be retained for later import.
 
+## Tool Name Surfaces
+
+This plugin's `workflow.sessionlog.*`, `workflow.todo.*`, and
+`workflow.requirements.*` names are plugin workflow/REPL method names used by
+the Cowork skills and helper scripts. They are distinct from native McpServer
+MCP tool names exposed by `/mcp-transport`, such as `sessionlog_*`, `todo_*`,
+and `requirements_*`, and from hosted-agent aliases such as `mcp_session_*`.
+
+Do not treat the absence of literal `workflow.*` names from generic MCP tool
+discovery as proof that this plugin is unavailable. Validate the Cowork plugin
+connector, marker trust, and helper wrapper path instead.
+
 ## Local stdio MCP - how it works
 
 Cowork loads the MCP server entry from `.mcp.json` at plugin install time:

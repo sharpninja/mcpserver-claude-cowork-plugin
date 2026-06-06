@@ -21,6 +21,19 @@ follow, plus the helper scripts in `lib/` that automate the bookkeeping.
 These rules are partially enforced by hooks in `hooks/hooks.json` for ClaudeCowork.
 Additional compliance is agent-driven.
 
+## Tool Name Surfaces
+
+The enforcement scripts call `workflow.sessionlog.*`, `workflow.todo.*`, and
+`workflow.requirements.*` through the plugin helper path. Those are plugin
+workflow/REPL method names, not literal native MCP tool names. Native McpServer
+MCP discovery uses names such as `sessionlog_*`, `todo_*`, and
+`requirements_*`; hosted-agent adapters may expose aliases such as
+`mcp_session_*`.
+
+Use the Cowork connector, marker trust, and helper scripts to validate this
+plugin. Do not search generic MCP discovery for literal `workflow.*` names and
+call the plugin unavailable solely because those names are absent.
+
 ## The Three Scripts
 
 The plugin ships three bash scripts in `lib/` that ClaudeCowork agents should invoke
