@@ -1,0 +1,6 @@
+lib/cache-manager.ps1
+lib/ensure-repl.ps1
+lib/marker-resolver.ps1
+lib/plugin-env.sh
+lib/repl-invoke.ps1
+lib/resolve-cache-dir.ps1
