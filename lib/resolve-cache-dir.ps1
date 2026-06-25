@@ -8,10 +8,12 @@
     Precedence:
       1. $env:MCP_CACHE_DIR_OVERRIDE    explicit override.
       2. $env:PLUGIN_ROOT_OVERRIDE/cache legacy test hook.
-      3. workspace env/cache            workspace resolved from Cowork/plugin env.
+      3. workspace env/cache            $env:MCPSERVER_WORKSPACE_PATH or
+                                        $env:MCP_WORKSPACE_PATH (host-neutral).
       4. <markerDir>/cache              workspace resolved by walking up for
                                         AGENTS-README-FIRST.yaml.
-      5. $env:CLAUDE_PLUGIN_ROOT/cache  last-resort fallback.
+      5. $env:MCP_PLUGIN_ROOT/cache     last-resort fallback (legacy
+                                        $env:CLAUDE_PLUGIN_ROOT honored).
 #>
 
 $script:ResolveCacheDirScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -20,6 +22,9 @@ function Resolve-McpCacheDir {
     [CmdletBinding()]
     param()
 
+    if ($env:REPL_INVOKE_CACHE_DIR) {
+        return $env:REPL_INVOKE_CACHE_DIR
+    }
     if ($env:MCP_CACHE_DIR_OVERRIDE) {
         return $env:MCP_CACHE_DIR_OVERRIDE
     }
@@ -28,9 +33,7 @@ function Resolve-McpCacheDir {
         return (Join-Path $env:PLUGIN_ROOT_OVERRIDE 'cache')
     }
 
-    $configuredWorkspace = if ($env:COWORK_WORKSPACE_PATH) {
-        $env:COWORK_WORKSPACE_PATH
-    } elseif ($env:MCPSERVER_WORKSPACE_PATH) {
+    $configuredWorkspace = if ($env:MCPSERVER_WORKSPACE_PATH) {
         $env:MCPSERVER_WORKSPACE_PATH
     } elseif ($env:MCP_WORKSPACE_PATH) {
         $env:MCP_WORKSPACE_PATH
@@ -42,10 +45,8 @@ function Resolve-McpCacheDir {
         return (Join-Path $configuredWorkspace 'cache')
     }
 
-    $startDir = if ($env:COWORK_WORKSPACE_PATH) {
-        $env:COWORK_WORKSPACE_PATH
-    } elseif ($env:CLAUDE_COWORK_WORKSPACE_PATH) {
-        $env:CLAUDE_COWORK_WORKSPACE_PATH
+    $startDir = if ($env:MCP_WORKSPACE_START_DIR) {
+        $env:MCP_WORKSPACE_START_DIR
     } elseif ($env:CLAUDE_PROJECT_DIR) {
         $env:CLAUDE_PROJECT_DIR
     } else {
@@ -70,7 +71,9 @@ function Resolve-McpCacheDir {
         }
     }
 
-    $pluginRoot = if ($env:CLAUDE_PLUGIN_ROOT) {
+    $pluginRoot = if ($env:MCP_PLUGIN_ROOT) {
+        $env:MCP_PLUGIN_ROOT
+    } elseif ($env:CLAUDE_PLUGIN_ROOT) {
         $env:CLAUDE_PLUGIN_ROOT
     } else {
         Split-Path -Parent $script:ResolveCacheDirScriptDir
