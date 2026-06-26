@@ -7,7 +7,7 @@ description: This skill should be used when the user asks to "start session", "l
 
 ## Overview
 
-To manage agent session logs, use the `workflow.sessionlog.*` REPL command namespace via `mcpserver-repl --agent-stdio`. Session logging captures agent activity, reasoning dialog, file operations, and design decisions as a structured audit trail.
+To manage agent session logs, use the `workflow.sessionlog.*` REPL command namespace via `PowerShell.MCP wrapper`. Session logging captures agent activity, reasoning dialog, file operations, and design decisions as a structured audit trail.
 
 `workflow.sessionlog.*` is a plugin workflow/REPL namespace, not a literal native MCP tool namespace. Native McpServer `/mcp-transport` discovery uses names such as `sessionlog_*`, `todo_*`, and `requirements_*`; hosted-agent adapters may expose `mcp_session_*` aliases. Do not call this plugin unavailable solely because `workflow.*` names are absent from generic MCP discovery.
 
@@ -308,7 +308,7 @@ After a server restart or agent reconnect:
 
 ## Implementation Notes
 
-- Use `repl_invoke` from `lib/repl-invoke.sh` to build and dispatch envelopes.
+- Use `Invoke-McpPlugin.ps1` from `lib/repl-invoke.ps1` to build and dispatch envelopes.
 - Generate request IDs with the current UTC timestamp to guarantee uniqueness: `req-$(date -u +%Y%m%dT%H%M%SZ)-<slug>`.
 - Post `beginTurn` before starting any work on a user request; post `completeTurn` or `failTurn` after work ends. Never defer these calls.
 - Log all design decisions in `appendDialog` with `category: decision` AND in `appendActions` with `type: design_decision`.

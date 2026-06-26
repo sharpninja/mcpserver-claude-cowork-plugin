@@ -11,7 +11,7 @@ Use YAML request data for REPL calls. JSON is valid YAML, but keep examples in Y
 
 ## Trust Source
 
-Prefer a trusted existing marker from the active workspace. If the target workspace already has `AGENTS-README-FIRST.yaml`, validate it with `lib/marker-resolver.sh` before any MCP call. A trusted marker means the workspace is already registered enough to continue normal plugin bootstrap.
+Prefer a trusted existing marker from the active workspace. If the target workspace already has `AGENTS-README-FIRST.yaml`, validate it with `lib/marker-resolver.ps1` before any MCP call. A trusted marker means the workspace is already registered enough to continue normal plugin bootstrap.
 
 If the target workspace has no marker or the marker is untrusted, use another trusted control workspace marker to call the workspace lifecycle API. Do not use a marker from the untrusted target as credentials.
 
@@ -27,16 +27,16 @@ If the target workspace has no marker or the marker is untrusted, use another tr
 8. Re-read and validate the target `AGENTS-README-FIRST.yaml`.
 9. Only after validation succeeds, resume session log, TODO, and requirements writes through the plugin.
 
-## Bash Plugin Example
+## PowerShell Plugin Example
 
-```bash
+```powershell
 cd /f/GitHub/McpServer
 export CLAUDE_PLUGIN_ROOT=/f/GitHub/mcpserver-claude-cowork-plugin
 export PLUGIN_ROOT_OVERRIDE="$CLAUDE_PLUGIN_ROOT"
-source "$CLAUDE_PLUGIN_ROOT/lib/marker-resolver.sh"
+source "$CLAUDE_PLUGIN_ROOT/lib/marker-resolver.ps1"
 full_bootstrap /f/GitHub/McpServer
-source "$CLAUDE_PLUGIN_ROOT/lib/repl-invoke.sh"
-repl_invoke "client.Workspace.ListAsync" ""
+source "$CLAUDE_PLUGIN_ROOT/lib/repl-invoke.ps1"
+Invoke-McpPlugin.ps1 "client.Workspace.ListAsync" ""
 ```
 
 ## Create If Missing
@@ -56,7 +56,7 @@ payload:
       isEnabled: true
 ```
 
-The equivalent `repl_invoke` parameter body is:
+The equivalent `Invoke-McpPlugin.ps1` parameter body is:
 
 ```yaml
 request:

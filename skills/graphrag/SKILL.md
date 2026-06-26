@@ -7,7 +7,7 @@ description: This skill should be used when the user asks to "ingest text into g
 
 ## Overview
 
-To interact with the workspace GraphRAG knowledge graph, use the `workflow.graphrag.*` REPL command namespace via `mcpserver-repl --agent-stdio`. GraphRAG combines graph-based retrieval with semantic search, enabling richer context retrieval than vector-only approaches.
+To interact with the workspace GraphRAG knowledge graph, use the `workflow.graphrag.*` REPL command namespace via `PowerShell.MCP wrapper`. GraphRAG combines graph-based retrieval with semantic search, enabling richer context retrieval than vector-only approaches.
 
 GraphRAG is disabled by default. Confirm it is active for the workspace before calling any operations — `workflow.graphrag.status` will report `enabled: false` if it has not been configured.
 

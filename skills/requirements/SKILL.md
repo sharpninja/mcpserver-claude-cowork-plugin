@@ -7,7 +7,7 @@ description: This skill should be used when the user asks to "list requirements"
 
 ## Overview
 
-To manage functional requirements (FR), technical requirements (TR), test requirements (TEST), and their traceability mappings, use this Claude plugin's declared hook/wrapper for the `workflow.requirements.*` namespace. Do not substitute raw REST calls, generic `mcpserver-repl --agent-stdio`, helper modules, or another agent's plugin for normal requirements work.
+To manage functional requirements (FR), technical requirements (TR), test requirements (TEST), and their traceability mappings, use this Claude plugin's declared hook/wrapper for the `workflow.requirements.*` namespace. Do not substitute raw REST calls, generic `PowerShell.MCP wrapper`, helper modules, or another agent's plugin for normal requirements work.
 
 The database is the source of truth for requirements. Markdown files are import/export projections only. Every operation is scoped to the workspace resolved from the signed marker, and generated workspace output must contain only the requested workspace's FR, TR, TEST, and traceability links.
 
