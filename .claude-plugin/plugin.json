@@ -1,6 +1,6 @@
 {
   "name": "mcpserver-cowork",
-  "version": "1.50.0",
+  "version": "1.51.0",
   "description": "Connect Claude Cowork to McpServer for marker-trusted TODO management, session logging, requirements tracking, GraphRAG operations, and local outage handoff recovery.",
   "author": {
     "name": "Payton Byrd (The Sharp Ninja)",
