@@ -25,12 +25,12 @@ This is the Cowork-oriented sibling of `mcpserver-claude-code-plugin`. It keeps 
 1. Package this directory:
 
 ```powershell
-pwsh -NoLogo -NoProfile -File .\\scripts\\package-plugin.ps1
+pwsh -NoLogo -NoProfile -File .\scripts\package-plugin.ps1
 ```
 
 2. In Claude Desktop, open Cowork, then `Customize` -> `Plugins`.
-3. Upload `dist\\mcpserver-cowork-plugin.zip`.
-4. Set `workspace_path` to the absolute local workspace path, for example `F:\\GitHub\\McpServer`.
+3. Upload `dist\mcpserver-cowork-plugin.zip`.
+4. Set `workspace_path` to the absolute local workspace path, for example `F:\GitHub\McpServer`.
 5. Reload/validate before writing MCP data:
    - marker trust succeeds
    - `workflow.sessionlog.queryHistory` succeeds
@@ -93,9 +93,9 @@ Run the wrapper directly to see any startup error before Cowork gets involved:
 
 ```powershell
 # Windows - should block waiting for MCP JSON-RPC input (no immediate output = good)
-$env:MCP_WORKSPACE_PATH = "F:\\path\\to\\your\\workspace"
+$env:MCP_WORKSPACE_PATH = "F:\path\to\your\workspace"
 $env:MCP_SESSION_AGENT  = "ClaudeCowork"
-.\\bin\\mcpserver-stdio.cmd
+.\bin\mcpserver-stdio.cmd
 # Ctrl-C to exit
 
 # If mcpserver-repl is missing, the wrapper exits 1 and prints:
@@ -116,7 +116,7 @@ MCP_WORKSPACE_PATH=/path/to/workspace MCP_SESSION_AGENT=ClaudeCowork \
 dotnet tool install --global McpServer.Repl
 
 # Or use the bundled helper
-powershell -ExecutionPolicy Bypass -File lib\\ensure-repl.ps1   # Windows
+powershell -ExecutionPolicy Bypass -File lib\ensure-repl.ps1   # Windows
 bash lib/ensure-repl.sh                                         # Unix
 ```
 
@@ -134,16 +134,16 @@ After install, restart the plugin or re-open the Cowork workspace.
 ## Development
 
 ```powershell
-node .\\scripts\\validate-plugin.js
-bash -n .\\lib\\repl-invoke.sh
-bash -n .\\hooks\\scripts\\session-start.sh
+node .\scripts\validate-plugin.js
+bash -n .\lib\repl-invoke.sh
+bash -n .\hooks\scripts\session-start.sh
 ```
 
 If Claude Code is installed locally, this package can also be checked with:
 
 ```powershell
 claude plugin validate .
-claude plugin validate .\\.claude-plugin\\plugin.json   # also validates hooks.json
+claude plugin validate .\.claude-plugin\plugin.json   # also validates hooks.json
 ```
 
 ## Sources
