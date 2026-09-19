@@ -98,7 +98,7 @@ if (hooks && !hooks.hooks) {
 requirePath("bin/mcpserver-stdio.cmd");
 requirePath("bin/mcpserver-stdio.sh");
 
-for (const skill of ["todo", "session", "requirements", "graphrag", "workspace"]) {
+for (const skill of ["todo", "session", "requirements", "graphrag", "workspace", "add-profile"]) {
   requirePath(`skills/${skill}/SKILL.md`);
 }
 
