@@ -50,3 +50,5 @@ Before resuming normal MCP writes after install or update, validate:
 2. `workflow.sessionlog.queryHistory`
 3. `workflow.todo.query`
 4. `workflow.requirements.generateDocument` with `format: wiki`, `docType: all`, and ZIP signature `504b0304`
+
+External research: see `docs/research/perplexity-research-policy.md`.
