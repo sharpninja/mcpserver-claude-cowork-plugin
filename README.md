@@ -1,6 +1,6 @@
-# McpServer Claude Cowork Plugin
+# QBrain.AI Claude Cowork Plugin
 
-Connect [Claude Cowork](https://claude.ai) to [McpServer](https://github.com/sharpninja/McpServer) for workspace-scoped TODO management, session logging, requirements tracking, and GraphRAG knowledge graph operations.
+Connect [Claude Cowork](https://claude.ai) to [QBrain.AI](https://github.com/sharpninja/McpServer) for workspace-scoped TODO management, session logging, requirements tracking, and GraphRAG knowledge graph operations.
 
 This is the Cowork-oriented sibling of `mcpserver-claude-code-plugin`. It keeps the same marker-trusted MCP contract and repaired fallback behavior, but it does not assume a Claude Code project launch environment.
 
@@ -99,7 +99,7 @@ $env:MCP_SESSION_AGENT  = "ClaudeCowork"
 # Ctrl-C to exit
 
 # If mcpserver-repl is missing, the wrapper exits 1 and prints:
-#   [mcpserver-cowork] ERROR: mcpserver-repl not found on PATH.
+#   [mcpserver-cowork] ERROR: qbrain-ai-repl or mcpserver-repl not found on PATH.
 ```
 
 ```bash
