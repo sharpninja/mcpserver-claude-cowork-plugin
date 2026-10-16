@@ -8,3 +8,6 @@ cache/workspaces/
 AGENTS-README-FIRST.yaml.deleted-*
 dist/
 *.tmp
+AGENTS-README-FIRST.yaml
+.mcpServer/
+cache/
